@@ -12,7 +12,7 @@
 
 class Greedy : public Model {
 public:
-    Knapsack solve(const Instance & instance) {
+    Knapsack solve(const Instance & instance) override {
         std::vector<Item> items = sort_items_by_relative_profit(instance.items());
         Knapsack knapsack(instance.capacity());
         for (const auto & item : items) {

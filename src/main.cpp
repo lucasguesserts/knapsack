@@ -4,9 +4,9 @@
 #include "Instance.hpp"
 #include "Knapsack.hpp"
 
+#include "Brkga.hpp"
 #include "Greedy.hpp"
 #include "IntegerProgramming.hpp"
-#include "Brkga.hpp"
 
 using std::cout;
 using std::endl;

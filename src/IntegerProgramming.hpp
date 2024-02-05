@@ -9,7 +9,7 @@
 
 class IntegerProgramming : public Model {
 public:
-    Knapsack solve(const Instance & instance) {
+    Knapsack solve(const Instance & instance) override {
         try {
             const auto & items = instance.items();
             // model
