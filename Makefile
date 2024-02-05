@@ -19,3 +19,9 @@ all:
 			${MAIN_EXEC} $$M $$I | tee -a ${OUTPUT_FILE}; \
 		done \
 	done
+
+enforce_code_style:
+	find src/ -iname "*.hpp" -o -iname "*.cpp" | xargs clang-format -i
+
+clean:
+	rm -rf ${BUILD_DIR} .cache/ *.log*
