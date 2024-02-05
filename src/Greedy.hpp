@@ -7,8 +7,8 @@
 #include "Instance.hpp"
 #include "Item.hpp"
 #include "Knapsack.hpp"
-#include "Types.hpp"
 #include "Model.hpp"
+#include "Types.hpp"
 
 class Greedy : public Model {
 public:

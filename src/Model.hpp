@@ -12,5 +12,4 @@ public:
     virtual Knapsack solve(const Instance & instance) = 0;
 };
 
-
 #endif
