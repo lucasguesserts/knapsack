@@ -6,6 +6,7 @@
 
 #include "Greedy.hpp"
 #include "IntegerProgramming.hpp"
+#include "Brkga.hpp"
 
 using std::cout;
 using std::endl;
@@ -50,6 +51,8 @@ std::unique_ptr<Model> create_model(const std::string & model_name) {
         return std::make_unique<Greedy>();
     } else if (model_name == "ip") {
         return std::make_unique<IntegerProgramming>();
+    } else if (model_name == "brkga") {
+        return std::make_unique<Brkga>();
     } else {
         throw std::runtime_error("unknown model: " + model_name);
     }

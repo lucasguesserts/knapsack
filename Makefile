@@ -6,7 +6,7 @@ MAIN_EXEC = ${BUILD_DIR}/main
 OUTPUT_FILE = results.log
 
 INSTANCES = $(wildcard instances/*.txt)
-MODELS = greedy ip
+MODELS = greedy ip brkga
 
 all:
 	cmake . -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) -B ${BUILD_DIR} &&\
