@@ -4,10 +4,8 @@
 #include "gurobi_c++.h"
 
 #include "Instance.hpp"
-#include "Item.hpp"
 #include "Knapsack.hpp"
 #include "Model.hpp"
-#include "Types.hpp"
 
 class IntegerProgramming : public Model {
 public:

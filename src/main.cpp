@@ -1,12 +1,8 @@
-#include <algorithm>
 #include <iostream>
 #include <memory>
-#include <vector>
 
 #include "Instance.hpp"
-#include "Item.hpp"
 #include "Knapsack.hpp"
-#include "Types.hpp"
 
 #include "Greedy.hpp"
 #include "IntegerProgramming.hpp"
