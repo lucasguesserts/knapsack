@@ -3,7 +3,7 @@ BUILD_TYPE = Release
 NUMBER_OF_THREADS := $$(expr `nproc --all` / 2)
 
 MAIN_EXEC = ${BUILD_DIR}/main
-OUTPUT_FILE = ${BUILD_DIR}/output.log
+OUTPUT_FILE = results.log
 
 INSTANCES = $(wildcard instances/*.txt)
 MODELS = greedy ip
