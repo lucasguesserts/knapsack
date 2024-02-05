@@ -1,0 +1,28 @@
+# temporary
+*foo*
+*goo*
+*hoo*
+
+# c++
+build/
+.cache/
+perf.*
+
+# code coverage
+coverage/
+
+# node
+node_modules/
+
+# vim
+*.swp
+*.swo
+
+# vscode
+.vscode/*
+
+# python
+venv
+
+# others
+*.log*
