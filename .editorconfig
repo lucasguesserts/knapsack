@@ -7,6 +7,9 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 indent_style = space
 
+[CMakeLists.txt]
+indent_size = 4
+
 [*.{h,hpp,c,cpp}]
 indent_size = 4
 
