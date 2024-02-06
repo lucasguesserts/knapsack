@@ -16,7 +16,7 @@ all:
 		for M in ${MODELS}; do \
 			echo -e "===\n\ninstance: $$I\nmodel: $$M" | tee -a ${OUTPUT_FILE}; \
 			LD_LIBRARY_PATH=${GUROBI_LIB_DIR}:$$LD_LIBRARY_PATH \
-			${MAIN_EXEC} $$M $$I | tee -a ${OUTPUT_FILE}; \
+			${MAIN_EXEC} --model=$$M $$I | tee -a ${OUTPUT_FILE}; \
 		done \
 	done
 
