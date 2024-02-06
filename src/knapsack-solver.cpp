@@ -42,13 +42,14 @@ void print_knapsack(const Knapsack & knapsack, const bool debug = false) {
     return;
 }
 
-std::unique_ptr<Model> create_model(const std::string & model_name) {
+std::unique_ptr<Model> create_model(const std::string & model_name, const cxxopts::ParseResult & cli_parameters) {
     if (model_name == "greedy") {
         return std::make_unique<Greedy>();
     } else if (model_name == "ip") {
         return std::make_unique<IntegerProgramming>();
     } else if (model_name == "brkga") {
-        return std::make_unique<Brkga>();
+        const auto population_size = cli_parameters["population-size"].as<Integer>();
+        return std::make_unique<Brkga>(population_size);
     } else {
         throw std::runtime_error("unknown model: " + model_name);
     }
@@ -61,25 +62,26 @@ int main(const int argc, const char * const argv[]) {
 
         options.add_options()("m,model", "model to be used to solve the problem, one of: greedy, ip, brkga", cxxopts::value<std::string>()->default_value("greedy"));
         options.add_options()("d,debug", "Enable debugging", cxxopts::value<bool>()->implicit_value("true")->default_value("false"));
+        options.add_options()("population-size", "size of the population for BRKGA (only works if model is brkga)", cxxopts::value<Integer>()->default_value("100"));
         options.add_options()("instance-file", "path to the instance file", cxxopts::value<std::string>());
         options.add_options()("h,help", "Print this help message");
 
         options.parse_positional({"instance-file"});
         options.positional_help("INSTANCE-FILE");
 
-        auto result = options.parse(argc, argv);
+        const auto cli_parameters = options.parse(argc, argv);
 
-        if (result.count("help")) {
+        if (cli_parameters.count("help")) {
             std::cout << options.help() << std::endl;
             return 0;
         }
 
-        const auto debug = result["debug"].as<bool>();
-        const auto model_name = result["model"].as<std::string>();
-        const auto instance_file = result["instance-file"].as<std::string>();
+        const auto debug = cli_parameters["debug"].as<bool>();
+        const auto model_name = cli_parameters["model"].as<std::string>();
+        const auto instance_file = cli_parameters["instance-file"].as<std::string>();
 
         // solver
-        std::unique_ptr<Model> model = create_model(model_name);
+        std::unique_ptr<Model> model = create_model(model_name, cli_parameters);
 
         Instance instance(instance_file);
         print_instance(instance, debug);

@@ -70,6 +70,9 @@ private:
 
 class Brkga : public Model {
 public:
+    Brkga(const Integer & population_size = 100)
+        : population_size(population_size) {}
+
     Knapsack solve(const Instance & instance) override {
         const auto parameters = make_brkga_parameters();
         const auto control_parameters = make_brkga_control_parameters();
@@ -89,9 +92,11 @@ public:
     }
 
 private:
+    Integer population_size;
+
     BRKGA::BrkgaParams make_brkga_parameters() {
         auto parameters = BRKGA::BrkgaParams{};
-        parameters.population_size = 100;
+        parameters.population_size = this->population_size;
         parameters.elite_percentage = 0.3;
         parameters.mutants_percentage = 0.2;
         parameters.num_elite_parents = 2;
