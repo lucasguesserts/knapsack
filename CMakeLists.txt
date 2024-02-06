@@ -21,6 +21,12 @@ if(Brkga_mp_ipr_ADDED)
     add_library(Brkga_mp_ipr::Brkga_mp_ipr INTERFACE IMPORTED)
     target_include_directories(Brkga_mp_ipr::Brkga_mp_ipr INTERFACE "${Brkga_mp_ipr_SOURCE_DIR}/brkga_mp_ipr")
 endif()
+# cxxopts
+CPMAddPackage(
+    GITHUB_REPOSITORY jarro2783/cxxopts
+    VERSION 3.1.1
+    OPTIONS "CXXOPTS_BUILD_EXAMPLES NO" "CXXOPTS_BUILD_TESTS NO" "CXXOPTS_ENABLE_INSTALL YES"
+)
 # Gurobi
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 find_package(Gurobi REQUIRED)
@@ -30,7 +36,7 @@ set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 add_executable(main ${SOURCE_DIR}/main.cpp)
 target_include_directories(main PRIVATE $SOURCE_DIR)
-target_link_libraries(main PRIVATE Brkga_mp_ipr::Brkga_mp_ipr Gurobi::CXX)
+target_link_libraries(main PRIVATE Brkga_mp_ipr::Brkga_mp_ipr cxxopts::cxxopts Gurobi::CXX)
 target_compile_options(main PRIVATE -ggdb3)
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(main PRIVATE DEBUG)
