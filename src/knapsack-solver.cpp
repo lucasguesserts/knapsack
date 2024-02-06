@@ -1,6 +1,8 @@
 #include <iostream>
 #include <memory>
 
+#include <boost/timer/timer.hpp>
+
 #include <cxxopts.hpp>
 
 #include "Instance.hpp"
@@ -9,6 +11,7 @@
 #include "Brkga.hpp"
 #include "Greedy.hpp"
 #include "IntegerProgramming.hpp"
+#include "Types.hpp"
 
 using std::cout;
 using std::endl;
@@ -25,7 +28,7 @@ void print_instance(const Instance & instance, const bool debug = false) {
     return;
 }
 
-void print_knapsack(const Knapsack & knapsack, const bool debug = false) {
+void print_knapsack(const Knapsack & knapsack, const Real elapsed_time, const bool debug = false) {
     if (debug) {
         cout << endl;
         cout << "--- items in knapsack ---" << endl
@@ -37,7 +40,7 @@ void print_knapsack(const Knapsack & knapsack, const bool debug = false) {
         cout << "total profit: " << knapsack.profit() << endl;
         cout << endl;
     } else {
-        cout << "-" << knapsack.profit() << endl;
+        cout << "-" << knapsack.profit() << " " << elapsed_time << endl;
     }
     return;
 }
@@ -81,13 +84,18 @@ int main(const int argc, const char * const argv[]) {
         const auto instance_file = cli_parameters["instance-file"].as<std::string>();
 
         // solver
+        boost::timer::cpu_timer timer;
+
         std::unique_ptr<Model> model = create_model(model_name, cli_parameters);
 
         Instance instance(instance_file);
         print_instance(instance, debug);
 
+        timer.start();
         Knapsack knapsack = model->solve(instance);
-        print_knapsack(knapsack, debug);
+        timer.stop();
+        const Real running_time_seconds = timer.elapsed().user / 1.0e+9;
+        print_knapsack(knapsack, running_time_seconds, debug);
 
     } catch (const std::exception & e) {
         cout << "Error: " << e.what() << endl;
