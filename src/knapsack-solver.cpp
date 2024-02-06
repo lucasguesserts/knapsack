@@ -40,7 +40,8 @@ void print_knapsack(const Knapsack & knapsack, const Real elapsed_time, const bo
         cout << "total profit: " << knapsack.profit() << endl;
         cout << endl;
     } else {
-        cout << "-" << knapsack.profit() << " " << elapsed_time << endl;
+        const auto relative_profit = static_cast<Real>(knapsack.profit()) / knapsack.capacity();
+        cout << "-" << relative_profit << " " << elapsed_time << endl;
     }
     return;
 }
