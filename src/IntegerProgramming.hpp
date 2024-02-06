@@ -15,6 +15,8 @@ public:
             // model
             GRBEnv env = GRBEnv(true);
             env.set(GRB_IntParam_OutputFlag, 0);
+            env.set(GRB_IntParam_Threads, 1);
+            env.set(GRB_DoubleParam_TimeLimit, 2.0);
             env.start();
             GRBModel model = GRBModel(env);
             // variables
@@ -39,6 +41,7 @@ public:
                     knapsack.add_item(items[i]);
                 }
             }
+            delete x;
             return knapsack;
         } catch (GRBException & e) {
             throw std::runtime_error(e.getMessage());

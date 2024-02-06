@@ -16,8 +16,8 @@
 using std::cout;
 using std::endl;
 
-void print_instance(const Instance & instance, const bool debug = false) {
-    if (debug) {
+void print_instance(const Instance & instance, const bool extra_debug = false) {
+    if (extra_debug) {
         cout << endl
              << "--- items in instance of capacity " << instance.capacity() << " ---" << endl
              << endl;
@@ -28,8 +28,8 @@ void print_instance(const Instance & instance, const bool debug = false) {
     return;
 }
 
-void print_knapsack(const Knapsack & knapsack, const Real elapsed_time, const bool debug = false) {
-    if (debug) {
+void print_knapsack(const Knapsack & knapsack, const Real elapsed_time, const bool debug, const bool extra_debug) {
+    if (extra_debug) {
         cout << endl;
         cout << "--- items in knapsack ---" << endl
              << endl;
@@ -39,6 +39,11 @@ void print_knapsack(const Knapsack & knapsack, const Real elapsed_time, const bo
         cout << "total weight: " << knapsack.weight() << " (< " << knapsack.capacity() << ")" << endl;
         cout << "total profit: " << knapsack.profit() << endl;
         cout << endl;
+    } else if (debug) {
+        cout << "profit: " << knapsack.profit() << endl;
+        cout << "weight: " << knapsack.weight() << endl;
+        cout << "capacity: " << knapsack.capacity() << endl;
+        cout << "elapsed time: " << elapsed_time << endl;
     } else {
         const auto relative_profit = static_cast<Real>(knapsack.profit()) / knapsack.capacity();
         cout << "-" << relative_profit << " " << elapsed_time << endl;
@@ -71,7 +76,8 @@ int main(const int argc, const char * const argv[]) {
         cxxopts::Options options("knapsack-solver", "a solver with many models for the knapsack problem");
 
         options.add_options()("m,model", "model to be used to solve the problem, one of: greedy, ip, brkga", cxxopts::value<std::string>()->default_value("greedy"));
-        options.add_options()("d,debug", "Enable debugging", cxxopts::value<bool>()->implicit_value("true")->default_value("false"));
+        options.add_options()("d,debug", "Enable debugging, print a little more data", cxxopts::value<bool>()->implicit_value("true")->default_value("false"));
+        options.add_options()("extra-debug", "Enable debugging, print extra data", cxxopts::value<bool>()->implicit_value("true")->default_value("false"));
         options.add_options()("instance-file", "path to the instance file", cxxopts::value<std::string>());
         options.add_options()("h,help", "Print this help message");
         options.add_options()("s,seed", "Seed for the random number generator", cxxopts::value<Integer>()->default_value("1234"));
@@ -92,6 +98,7 @@ int main(const int argc, const char * const argv[]) {
         }
 
         const auto debug = cli_parameters["debug"].as<bool>();
+        const auto extra_debug = cli_parameters["extra-debug"].as<bool>();
         const auto model_name = cli_parameters["model"].as<std::string>();
         const auto instance_file = cli_parameters["instance-file"].as<std::string>();
 
@@ -101,13 +108,13 @@ int main(const int argc, const char * const argv[]) {
         std::unique_ptr<Model> model = create_model(model_name, cli_parameters);
 
         Instance instance(instance_file);
-        print_instance(instance, debug);
+        print_instance(instance, extra_debug);
 
         timer.start();
         Knapsack knapsack = model->solve(instance);
         timer.stop();
         const Real running_time_seconds = timer.elapsed().user / 1.0e+9;
-        print_knapsack(knapsack, running_time_seconds, debug);
+        print_knapsack(knapsack, running_time_seconds, debug, extra_debug);
 
     } catch (const std::exception & e) {
         cout << "Error: " << e.what() << endl;
