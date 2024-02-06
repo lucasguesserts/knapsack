@@ -31,12 +31,21 @@ CPMAddPackage(
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 find_package(Gurobi REQUIRED)
 list(REMOVE_AT CMAKE_MODULE_PATH -1)
+# boost
+find_package(Boost COMPONENTS timer REQUIRED)
+
+if(Boost_FOUND)
+    add_library(boost INTERFACE IMPORTED)
+    set_target_properties(boost PROPERTIES IMPORTED_LOCATION ${Boost_LIBRARIES})
+    target_include_directories(boost SYSTEM INTERFACE ${Boost_INCLUDE_DIRS})
+    target_link_libraries(boost INTERFACE ${Boost_LIBRARIES})
+endif()
 
 set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 add_executable(knapsack-solver ${SOURCE_DIR}/knapsack-solver.cpp)
 target_include_directories(knapsack-solver PRIVATE $SOURCE_DIR)
-target_link_libraries(knapsack-solver PRIVATE Brkga_mp_ipr::Brkga_mp_ipr cxxopts::cxxopts Gurobi::CXX)
+target_link_libraries(knapsack-solver PRIVATE Brkga_mp_ipr::Brkga_mp_ipr cxxopts::cxxopts Gurobi::CXX boost)
 target_compile_options(knapsack-solver PRIVATE -ggdb3)
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(knapsack-solver PRIVATE DEBUG)
