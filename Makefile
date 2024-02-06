@@ -2,7 +2,7 @@ BUILD_DIR = build
 BUILD_TYPE = Release
 NUMBER_OF_THREADS := $$(expr `nproc --all` / 2)
 
-MAIN_EXEC = ${BUILD_DIR}/main
+SOLVER_EXEC = ${BUILD_DIR}/knapsack-solver
 OUTPUT_FILE = results.log
 
 INSTANCES = $(wildcard instances/*.txt)
@@ -16,7 +16,7 @@ all:
 		for M in ${MODELS}; do \
 			echo -e "===\n\ninstance: $$I\nmodel: $$M" | tee -a ${OUTPUT_FILE}; \
 			LD_LIBRARY_PATH=${GUROBI_LIB_DIR}:$$LD_LIBRARY_PATH \
-			${MAIN_EXEC} --model=$$M $$I | tee -a ${OUTPUT_FILE}; \
+			${SOLVER_EXEC} --model=$$M $$I | tee -a ${OUTPUT_FILE}; \
 		done \
 	done
 
