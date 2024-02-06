@@ -24,5 +24,8 @@ node_modules/
 # python
 venv
 
+# irace
+*.Rdata
+
 # others
 *.log*
