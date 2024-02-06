@@ -26,17 +26,19 @@ void print_instance(const Instance & instance, const bool debug = false) {
 }
 
 void print_knapsack(const Knapsack & knapsack, const bool debug = false) {
-    cout << endl;
     if (debug) {
+        cout << endl;
         cout << "--- items in knapsack ---" << endl
              << endl;
         for (const auto & item : knapsack.items()) {
             cout << "id: " << item.id() << " profit: " << item.profit() << " weight: " << item.weight() << endl;
         }
+        cout << "total weight: " << knapsack.weight() << " (< " << knapsack.capacity() << ")" << endl;
+        cout << "total profit: " << knapsack.profit() << endl;
+        cout << endl;
+    } else {
+        cout << knapsack.profit() << endl;
     }
-    cout << "total weight: " << knapsack.weight() << " (< " << knapsack.capacity() << ")" << endl;
-    cout << "total profit: " << knapsack.profit() << endl;
-    cout << endl;
     return;
 }
 

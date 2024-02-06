@@ -8,9 +8,11 @@ OUTPUT_FILE = results.log
 INSTANCES = $(wildcard instances/*.txt)
 MODELS = greedy ip brkga
 
-all:
-	cmake . -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) -B ${BUILD_DIR} &&\
-	cmake --build $(BUILD_DIR) -- -j $(NUMBER_OF_THREADS) &&\
+.PHONY: build
+
+all: build run
+
+run: build
 	cp /dev/null ${OUTPUT_FILE} &&\
 	for I in ${INSTANCES}; do \
 		for M in ${MODELS}; do \
@@ -19,6 +21,10 @@ all:
 			${SOLVER_EXEC} --model=$$M $$I | tee -a ${OUTPUT_FILE}; \
 		done \
 	done
+
+build:
+	cmake . -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) -B ${BUILD_DIR}
+	cmake --build $(BUILD_DIR) -- -j $(NUMBER_OF_THREADS)
 
 enforce_code_style:
 	find src/ -iname "*.hpp" -o -iname "*.cpp" | xargs clang-format -i
