@@ -37,7 +37,7 @@ void print_knapsack(const Knapsack & knapsack, const bool debug = false) {
         cout << "total profit: " << knapsack.profit() << endl;
         cout << endl;
     } else {
-        cout << knapsack.profit() << endl;
+        cout << "-" << knapsack.profit() << endl;
     }
     return;
 }
