@@ -1,0 +1,14 @@
+## This is an example of specifying a list of instances.
+
+# Each line is an instance relative to trainInstancesDir/testInstancesdir
+# unless set to "" (see scenario.txt.tmpl) and an optional sequence of
+# instance-specific parameters that will be passed to target-runner when
+# invoked on that instance.
+
+# Empty lines and comments are ignored.
+
+n_1000_c_1000000_g_5_f_0.2_eps_0.01_s_500.txt
+n_10_c_1000_g_2_f_0.5_eps_0.1_s_50.txt
+n_5000_c_10000000_g_6_f_0.1_eps_0.01_s_5000.txt
+n_100_c_10000_g_4_f_0.1_eps_0.01_s_200.txt
+n_20_c_5000_g_3_f_0.2_eps_0.05_s_100.txt
