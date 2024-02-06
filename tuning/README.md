@@ -2,5 +2,5 @@
 
 ```sh
 cd PATH_TO_THIS_README
-irace --forbidden-file=./forbidden.txt
+irace --forbidden-file=./forbidden.txt | tee irace.log
 ```

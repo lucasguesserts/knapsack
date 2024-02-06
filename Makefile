@@ -18,7 +18,7 @@ run: build
 		for M in ${MODELS}; do \
 			echo -e "===\n\ninstance: $$I\nmodel: $$M" | tee -a ${OUTPUT_FILE}; \
 			LD_LIBRARY_PATH=${GUROBI_LIB_DIR}:$$LD_LIBRARY_PATH \
-			${SOLVER_EXEC} --model=$$M $$I | tee -a ${OUTPUT_FILE}; \
+			${SOLVER_EXEC} --model=$$M --seed=1234 --population_size=204 --elite_percentage=0.1207 --mutants_percentage=0.0198 --num_elite_parents=2 --total_parents=5 $$I | tee -a ${OUTPUT_FILE}; \
 		done \
 	done
 
