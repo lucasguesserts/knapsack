@@ -25,11 +25,15 @@
 ##    other parameters. This expression must return TRUE if the
 ##    condition is satisfied, FALSE otherwise.
 
-# 1:            2:                   3: 4:      5:
-#param1         "--param1 "          i  (1, 10) | mode %in% c("x1", "x2")
-#param2         "--param2 "          i  (1, 10) | mode %in% c("x1", "x3") && real > 2.5 && real <= 3.5
-#mode           "--"                 c  ("x1" ,"x2", "x3")
-#real           "--paramreal="       r  (1.5, 4.5)
-#mutation       "--mutation="        o  ("none", "very low", "low", "medium", "high", "very high", "all")
-#unused         "-u "                c  (1, 2, 10, 20)
-populationsize  "--population-size=" i  (10, 100)
+# 1:                          2:                                 3:   4:      5:
+#param1                       "--param1 "                        i    (1, 10) | mode %in% c("x1", "x2")
+#param2                       "--param2 "                        i    (1, 10) | mode %in% c("x1", "x3") && real > 2.5 && real <= 3.5
+#mode                         "--"                               c    ("x1" ,"x2", "x3")
+#real                         "--paramreal="                     r    (1.5, 4.5)
+#mutation                     "--mutation="                      o    ("none", "very low", "low", "medium", "high", "very high", "all")
+#unused                       "-u "                              c    (1, 2, 10, 20)
+population_size               "--population_size="               i    (10, 1000)
+elite_percentage              "--elite_percentage="              r    (0.001, 0.5)
+mutants_percentage            "--mutants_percentage="            r    (0.001, 0.5)
+num_elite_parents             "--num_elite_parents="             i    (1, 5)
+total_parents                 "--total_parents="                 i    (2, 5)

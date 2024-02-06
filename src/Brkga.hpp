@@ -70,12 +70,16 @@ private:
 
 class Brkga : public Model {
 public:
-    Brkga(const Integer & population_size = 100)
-        : population_size(population_size) {}
+    BRKGA::BrkgaParams parameters;
+    Integer seed = 1234;
+
+    Brkga() {
+        initialize_parameters(this->parameters);
+        initialize_control_parameters(this->control_parameters);
+        return;
+    }
 
     Knapsack solve(const Instance & instance) override {
-        const auto parameters = make_brkga_parameters();
-        const auto control_parameters = make_brkga_control_parameters();
         auto decoder = Decoder(instance);
 
         BRKGA::BRKGA_MP_IPR<Decoder> solver(
@@ -92,17 +96,17 @@ public:
     }
 
 private:
-    Integer population_size;
+    BRKGA::ControlParams control_parameters;
 
-    BRKGA::BrkgaParams make_brkga_parameters() {
-        auto parameters = BRKGA::BrkgaParams{};
-        parameters.population_size = this->population_size;
+    static void initialize_parameters(BRKGA::BrkgaParams & parameters) {
+        parameters.population_size = 100;
         parameters.elite_percentage = 0.3;
         parameters.mutants_percentage = 0.2;
         parameters.num_elite_parents = 2;
         parameters.total_parents = 3;
         parameters.bias_type = BRKGA::BiasFunctionType::LOGINVERSE;
-        parameters.num_independent_populations = 3;
+        parameters.num_independent_populations = 1;
+        // ipr and shake disabled
         parameters.pr_number_pairs = 0;
         parameters.pr_minimum_distance = 0.15;
         parameters.pr_type = BRKGA::PathRelinking::Type::DIRECT;
@@ -124,18 +128,19 @@ private:
         parameters.shaking_type = BRKGA::ShakingType::SWAP;
         parameters.shaking_intensity_lower_bound = 0.25;
         parameters.shaking_intensity_upper_bound = 0.75;
-        return parameters;
+        return;
     }
 
-    BRKGA::ControlParams make_brkga_control_parameters() {
-        auto parameters = BRKGA::ControlParams{};
+    void initialize_control_parameters(BRKGA::ControlParams & parameters) {
+        // stop criterias
         parameters.maximum_running_time = std::chrono::seconds{1};
-        parameters.exchange_interval = 100;
-        parameters.ipr_interval = 200;
-        parameters.shake_interval = 300;
-        parameters.reset_interval = 500;
         parameters.stall_offset = 1000;
-        return parameters;
+        // other paramters
+        parameters.exchange_interval = 0; // disable exchange
+        parameters.ipr_interval = 0; // disable implicit path relink (ipr)
+        parameters.shake_interval = 0; // disable shaken
+        parameters.reset_interval = 0; // disable reset
+        return;
     }
 };
 

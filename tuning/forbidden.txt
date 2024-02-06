@@ -13,3 +13,8 @@
 ##param1 < 5 & mode == "x1"
 ##(param2 > 6 & mode == "x1") | (param2 <= 6 & mode == "x2")
 ##real < 4 & mode %in% c("x2", "x3")
+total_parents > population_size
+total_parents <= num_elite_parents
+num_elite_parents > population_size * elite_percentage
+elite_percentage + mutants_percentage >= 1.0
+elite_percentage * population_size < 1.0

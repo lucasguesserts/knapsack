@@ -52,8 +52,14 @@ std::unique_ptr<Model> create_model(const std::string & model_name, const cxxopt
     } else if (model_name == "ip") {
         return std::make_unique<IntegerProgramming>();
     } else if (model_name == "brkga") {
-        const auto population_size = cli_parameters["population-size"].as<Integer>();
-        return std::make_unique<Brkga>(population_size);
+        auto model = std::make_unique<Brkga>();
+        model->seed = cli_parameters["seed"].as<Integer>();
+        model->parameters.population_size = cli_parameters["population_size"].as<Integer>();
+        model->parameters.elite_percentage = cli_parameters["elite_percentage"].as<Real>();
+        model->parameters.mutants_percentage = cli_parameters["mutants_percentage"].as<Real>();
+        model->parameters.num_elite_parents = cli_parameters["num_elite_parents"].as<Integer>();
+        model->parameters.total_parents = cli_parameters["total_parents"].as<Integer>();
+        return model;
     } else {
         throw std::runtime_error("unknown model: " + model_name);
     }
@@ -66,9 +72,14 @@ int main(const int argc, const char * const argv[]) {
 
         options.add_options()("m,model", "model to be used to solve the problem, one of: greedy, ip, brkga", cxxopts::value<std::string>()->default_value("greedy"));
         options.add_options()("d,debug", "Enable debugging", cxxopts::value<bool>()->implicit_value("true")->default_value("false"));
-        options.add_options()("population-size", "size of the population for BRKGA (only works if model is brkga)", cxxopts::value<Integer>()->default_value("100"));
         options.add_options()("instance-file", "path to the instance file", cxxopts::value<std::string>());
         options.add_options()("h,help", "Print this help message");
+        options.add_options()("s,seed", "Seed for the random number generator", cxxopts::value<Integer>()->default_value("1234"));
+        options.add_options()("population_size",    "Number of elements in the population", cxxopts::value<Integer>()->default_value("1000"));
+        options.add_options()("elite_percentage",   "Percentage of individuals to become the elite set (0.0, 1.0]", cxxopts::value<Real>()->default_value("0.1"));
+        options.add_options()("mutants_percentage", "Percentage of mutants to be inserted in the population (0.0, 1.0]", cxxopts::value<Real>()->default_value("0.1"));
+        options.add_options()("num_elite_parents",  "Number of elite parents for mating (> 0)", cxxopts::value<Integer>()->default_value("1"));
+        options.add_options()("total_parents",      "Number of total parents for mating (> 0)", cxxopts::value<Integer>()->default_value("2"));
 
         options.parse_positional({"instance-file"});
         options.positional_help("INSTANCE-FILE");

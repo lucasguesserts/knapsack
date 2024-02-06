@@ -36,7 +36,7 @@ CONFIG_PARAMS=$*
 # EDIT THIS: Path to your executable
 EXE=../build/knapsack-solver
 # EDIT THIS: Specify how parameters are given to your executable
-EXE_PARAMS="--model=brkga ${CONFIG_PARAMS} $INSTANCE"
+EXE_PARAMS="--model=brkga --seed=${SEED} ${CONFIG_PARAMS} $INSTANCE"
 
 if [ ! -x "$(command -v ${EXE})" ]; then
     error "${EXE}: not found or not executable (pwd: $(pwd))"
