@@ -8,7 +8,7 @@
 
 ## Maximum total execution time in seconds for the executions of targetRunner.
 ## targetRunner must return two values: cost and time.
-maxTime = 300
+maxTime = 600
 
 ## Directory where the programs will be run.
 # execDir = "./"

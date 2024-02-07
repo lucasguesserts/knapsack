@@ -8,7 +8,7 @@ OUTPUT_FILE = results.log
 INSTANCES = $(wildcard instances/*.txt)
 CONFIGS = "--model=greedy" \
 	"--model=ip --maximum_running_time=30.0" \
-	"--model=brkga --maximum_running_time=1.0 --population_size=204 --elite_percentage=0.1207 --mutants_percentage=0.0198 --num_elite_parents=2 --total_parents=5"
+	"--model=brkga --maximum_running_time=1.0 --population_size=323 --elite_percentage=0.1258 --mutants_percentage=0.0801 --num_elite_parents=3 --total_parents=4"
 RANDOM_SEED = 1234
 
 .PHONY: build
