@@ -9,14 +9,24 @@
 
 class IntegerProgramming : public Model {
 public:
+    IntegerProgramming() = default;
+
+    Real maximum_running_time = 2.0;
+    bool extra_debug = false;
+    Integer seed = 1234;
+
     Knapsack solve(const Instance & instance) override {
         try {
             const auto & items = instance.items();
             // model
             GRBEnv env = GRBEnv(true);
-            env.set(GRB_IntParam_OutputFlag, 0);
+            env.set(GRB_IntParam_OutputFlag, extra_debug);
             env.set(GRB_IntParam_Threads, 1);
-            env.set(GRB_DoubleParam_TimeLimit, 2.0);
+            env.set(GRB_DoubleParam_TimeLimit, this->maximum_running_time);
+            env.set(GRB_DoubleParam_MIPGap, 0.0);
+            env.set(GRB_DoubleParam_MIPGapAbs, 0.0);
+            env.set(GRB_DoubleParam_FeasibilityTol, 1e-9);
+            env.set(GRB_DoubleParam_IntFeasTol, 1e-9);
             env.start();
             GRBModel model = GRBModel(env);
             // variables

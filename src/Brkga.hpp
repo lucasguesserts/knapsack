@@ -71,6 +71,7 @@ private:
 class Brkga : public Model {
 public:
     BRKGA::BrkgaParams parameters;
+    BRKGA::ControlParams control_parameters;
     Integer seed = 1234;
 
     Brkga() {
@@ -96,7 +97,6 @@ public:
     }
 
 private:
-    BRKGA::ControlParams control_parameters;
 
     static void initialize_parameters(BRKGA::BrkgaParams & parameters) {
         parameters.population_size = 100;
