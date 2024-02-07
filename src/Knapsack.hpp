@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <stdexcept>
+#include <string>
 #include <vector>
 
 #include "Item.hpp"
@@ -18,7 +19,13 @@ public:
 
     void add_item(const Item & item) {
         if (this->_current_weight + item.weight() > this->_capacity) {
-            throw std::invalid_argument("The item does not fit in the knapsack");
+            std::string s = "";
+            s += "Knapsack: The item does not fit: ";
+            s += "item weight: " + std::to_string(item.weight());
+            s += " + current weight: " + std::to_string(this->_current_weight);
+            s += " combined weight: " + std::to_string(item.weight() + this->_current_weight);
+            s += " > " + std::to_string(this->_capacity) + " (capacity)";
+            throw std::invalid_argument(s);
         }
         this->_items.push_back(item);
         this->_current_profit += item.profit();
