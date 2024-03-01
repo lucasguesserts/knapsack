@@ -15,5 +15,3 @@
 ##param1 param2 mode   real mutation
 ##5        NA    "x2"   2.0   "low"
 ##
-populationsize
-50

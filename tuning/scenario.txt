@@ -12,32 +12,40 @@ maxTime = 600
 
 ## Number of calls to targetRunner to execute in parallel. Values 0 or 1 mean
 ## no parallelization.
-parallel = 8
+parallel = 14
 
 ## Directory where training instances are located; either absolute path or
 ## relative to current directory. If no trainInstancesFiles is provided, all
 ## the files in trainInstancesDir will be listed as instances.
-trainInstancesDir = "../instances"
+trainInstancesDir = "./train_instances"
 
 ## Directory where testing instances are located, either absolute or relative
 ## to current directory.
-# testInstancesDir = ""
-
-## Directory where the programs will be run.
-# execDir = "./"
+testInstancesDir = "./test_instances"
 
 ## File that contains the description of the parameters of the target
 ## algorithm.
-# parameterFile = "./parameters.txt"
+parameterFile = "./parameters.txt"
 
 ## File that contains a list of logical expressions that cannot be TRUE for
 ## any evaluated configuration. If empty or NULL, do not use forbidden
 ## expressions.
-# forbiddenFile = ""
+forbiddenFile = "./forbidden.txt"
+
+## Executable called for each configuration that executes the target algorithm
+## to be tuned. See the templates and examples provided.
+targetRunner = "./target-runner"
+
+## Number of elite configurations returned by irace that will be tested if
+## test instances are provided.
+testNbElites = 5
 
 ## File that contains a table of initial configurations. If empty or NULL, all
 ## initial configurations are randomly generated.
-# configurationsFile = ""
+# configurationsFile = "./configurations.txt"
+
+## Directory where the programs will be run.
+# execDir = "./"
 
 ## File to save tuning results as an R dataset, either absolute path or
 ## relative to execDir.
@@ -55,10 +63,6 @@ trainInstancesDir = "../instances"
 ## parameters for them.
 # testInstancesFile = ""
 
-## Number of elite configurations returned by irace that will be tested if
-## test instances are provided.
-# testNbElites = 1
-
 ## Enable/disable testing the elite configurations found at each iteration.
 # testIterationElites = 0
 
@@ -75,10 +79,6 @@ trainInstancesDir = "../instances"
 
 ## Number of instances evaluated between elimination tests.
 # eachTest = 1
-
-## Executable called for each configuration that executes the target algorithm
-## to be tuned. See the templates and examples provided.
-# targetRunner = "./target-runner"
 
 ## Executable that will be used to launch the target runner, when targetRunner
 ## cannot be executed directly (.e.g, a Python script in Windows).
