@@ -10,6 +10,10 @@
 ## targetRunner must return two values: cost and time.
 maxTime = 600
 
+## Number of calls to targetRunner to execute in parallel. Values 0 or 1 mean
+## no parallelization.
+parallel = 8
+
 ## Directory where the programs will be run.
 # execDir = "./"
 
@@ -116,10 +120,6 @@ trainInstancesDir = "../instances"
 
 ## Minimum time unit that is still (significantly) measureable.
 # minMeasurableTime = 0.01
-
-## Number of calls to targetRunner to execute in parallel. Values 0 or 1 mean
-## no parallelization.
-# parallel = 0
 
 ## Enable/disable load-balancing when executing experiments in parallel.
 ## Load-balancing makes better use of computing resources, but increases
