@@ -14,6 +14,15 @@ maxTime = 600
 ## no parallelization.
 parallel = 8
 
+## Directory where training instances are located; either absolute path or
+## relative to current directory. If no trainInstancesFiles is provided, all
+## the files in trainInstancesDir will be listed as instances.
+trainInstancesDir = "../instances"
+
+## Directory where testing instances are located, either absolute or relative
+## to current directory.
+# testInstancesDir = ""
+
 ## Directory where the programs will be run.
 # execDir = "./"
 
@@ -34,11 +43,6 @@ parallel = 8
 ## relative to execDir.
 # logFile = "./irace.Rdata"
 
-## Directory where training instances are located; either absolute path or
-## relative to current directory. If no trainInstancesFiles is provided, all
-## the files in trainInstancesDir will be listed as instances.
-trainInstancesDir = "../instances"
-
 ## File that contains a list of training instances and optionally additional
 ## parameters for them. If trainInstancesDir is provided, irace will search
 ## for the files in this folder.
@@ -46,10 +50,6 @@ trainInstancesDir = "../instances"
 
 ## Randomly sample the training instances or use them in the order given.
 # sampleInstances = 1
-
-## Directory where testing instances are located, either absolute or relative
-## to current directory.
-# testInstancesDir = ""
 
 ## File containing a list of test instances and optionally additional
 ## parameters for them.
